@@ -11,7 +11,8 @@ int print_menu() {
 	std::cout << "Please choose a option: \n";
 	std::cout << "(1) Add a new Vocabulary.\n";
 	std::cout << "(2) Start Vocabulary test.\n";
-	std::cout << "(3) Exit\n";
+	std::cout << "(3) Show Vocabularies\n";
+	std::cout << "(4) Exit\n";
 	int option = 0;
 	std::cout << "Choose a option: ";
 	std::cin >> option;
@@ -43,7 +44,7 @@ void ask_word(std::vector<std::string> voc_german, std::vector<std::string> voc_
 	int random = rand() % voc_german.size();
 	std::string sel_em = voc_german[random];
 	std::string sel_translation = voc_english[random];
-	std::cout << "Please tranlate the following word: " << sel_em << "\n";
+	std::cout << "Please translate the following word: " << sel_em << "\n";
 	std::string userInput;
 	std::cin >> userInput;
 	if (userInput == sel_translation) {
@@ -51,6 +52,13 @@ void ask_word(std::vector<std::string> voc_german, std::vector<std::string> voc_
 	}
 	else {
 		std::cout << "Wrong!\n";
+	}
+}
+
+void openFile(std::string file) {
+	std::fstream out("./vocabularies/" + file);
+	if (out.is_open()) {
+		std::cout << out.rdbuf();
 	}
 }
 
@@ -86,6 +94,16 @@ int main() {
 		print_menu();
 	}
 	else if (option == 3) {
+		std::cout << "\n";
+		std::cout << "German Vocabularies:\n";
+		openFile("voc_german.txt");
+		std::cout << "\n";
+		std::cout << "English Vocabularies:\n";
+		openFile("voc_english.txt");
+		std::cout << "\n";
+		print_menu();
+	}
+	else if (option == 4) {
 		return 0;
 	}
 	else {
